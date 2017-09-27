@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novadaq.Core", "Novadaq.Core\Novadaq.Core.csproj", "{F2DFB9F6-608E-4D61-83D3-9658DFB944D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Novadaq.Core", "Novadaq.Core\Novadaq.Core.csproj", "{F2DFB9F6-608E-4D61-83D3-9658DFB944D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novadaq.Core.Test", "Novadaq.Core.Test\Novadaq.Core.Test.csproj", "{EC65C20A-4677-47A3-8C3E-269FB944FF00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Novadaq.Core.Test", "Novadaq.Core.Test\Novadaq.Core.Test.csproj", "{EC65C20A-4677-47A3-8C3E-269FB944FF00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novadaq.UI", "Novadaq.UI\Novadaq.UI.csproj", "{5BC54781-3ADB-4C27-A1B3-2D06B4666A2A}"
 EndProject

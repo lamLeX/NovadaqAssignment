@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading;
 
 namespace Novadaq.Core
 {
     public static class FibonacciFinder
     {
-        public static long GetAt(long n)
+        public static long GetAt(long n, CancellationToken ct)
         {
             if (n < 1)
             {
@@ -14,7 +15,16 @@ namespace Novadaq.Core
             {
                 return 1;
             }
-            return GetAt(n - 1) + GetAt(n - 2);
+
+            //Stop the recursive if cancelation requested
+            ct.ThrowIfCancellationRequested();
+
+            return GetAt(n - 1, ct) + GetAt(n - 2, ct);
+        }
+
+        public static long GetAt(long n)
+        {
+            return GetAt(n, CancellationToken.None);
         }
     }
 }
