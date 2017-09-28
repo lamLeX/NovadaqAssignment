@@ -17,9 +17,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <!--<Button x:Name="btnRemoveEntry" Content="Remove Selected Range" HorizontalAlignment="Left" Margin="10,0,0,10" Width="137" Click="btnRemoveEntry_Click" Height="20" VerticalAlignment="Bottom" />
-        <Button x:Name="btnOutput" Content="Output to file" HorizontalAlignment="Left" Margin="152,0,0,10" Width="82" Height="20" VerticalAlignment="Bottom" Click="btnOutput_Click" IsEnabled="True" />
-        <TextBlock x:Name="lbWaiting" HorizontalAlignment="Left" Margin="239,291,0,0" TextWrapping="Wrap" Text="Saving..." VerticalAlignment="Top" Visibility="Collapsed"/>-->
-
     </Grid>
 </Window>

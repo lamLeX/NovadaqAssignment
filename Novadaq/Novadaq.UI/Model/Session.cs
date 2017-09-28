@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 
 namespace Novadaq.UI.Model
 {
+    /// <summary>
+    /// When there is new target folder, a new instance of session will be created.
+    /// </summary>
     public class Session
     {
         public Session(string inputFolder)

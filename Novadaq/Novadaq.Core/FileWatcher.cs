@@ -15,8 +15,6 @@ namespace Novadaq.Core
 
         private CancellationTokenSource _cts;
 
-        private Task _currentTask;
-
         private readonly List<IObserver<string>> _observers = new List<IObserver<string>>();
         public IObservable<string> InputValue { get; }
 
@@ -37,15 +35,17 @@ namespace Novadaq.Core
 
         public void Dispose()
         {
+            //Cancel all out standing task when this instance is disposed
             _cts?.Cancel();
         }
 
         public void StartMonitoring()
         {
             _cts?.Cancel();
+            //When the CancellationTokenSource is cancelled, it cannot be reused. Hence, we create new instance.
             _cts = new CancellationTokenSource();
             SignalObserver("Start observing");
-            _currentTask = AccquireInput(_cts.Token);
+            Task.Run(() => AccquireInput(_cts.Token));
         }
 
         public void StopMonitoring()
@@ -54,13 +54,19 @@ namespace Novadaq.Core
             SignalObserver("Observation stopped");
         }
 
+        /// <summary>
+        /// Start the task to continuously observe the input folder
+        /// </summary>
+        /// <param name="ct">The token used to cancel the task.</param>
+        /// <returns></returns>
         private async Task AccquireInput(CancellationToken ct)
         {
             while (!ct.IsCancellationRequested)
             {
                 if (File.Exists(_inputFile))
                 {
-                    //if task is cancelled, don't bother to carry on
+                    //if task is cancelled by the token source, don't bother to carry on.
+                    //Throw OperationCancelledException to signal the TPL to stop this task.
                     ct.ThrowIfCancellationRequested();
                     SignalObserver("Found input file");
 
@@ -70,7 +76,7 @@ namespace Novadaq.Core
                         ct.ThrowIfCancellationRequested();
                         SignalObserver("File read");
 
-                        int currentInput = 1;
+                        int currentInput = 0;
                         if (inputs.Any())
                         {
                             if (int.TryParse(inputs[0], out currentInput))
@@ -99,7 +105,14 @@ namespace Novadaq.Core
 
         private async Task ProceedToOutput(CancellationToken ct, int inputValue)
         {
+            if (inputValue < 1)
+            {
+                SignalObserver("Input valid is invalid. Must be greater than 0");
+                return;
+            }
+
             SignalObserver($"Looking up Fibonacci number at {inputValue}");
+
             //The process of finding Fibo nummber could take very long. Therefore, we offload it to new task and await on the current task
             //so that the current task don't block the thread from thread pool
             var fibocNumber = await Task.Run(() => FibonacciFinder.GetAt(inputValue, ct), ct);
@@ -109,7 +122,6 @@ namespace Novadaq.Core
             {
                 File.WriteAllLines(_outputFile, new[] { fibocNumber.ToString() });
                 SignalObserver("Finished writing to file");
-
             }
             catch (UnauthorizedAccessException)
             {

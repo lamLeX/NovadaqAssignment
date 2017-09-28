@@ -24,7 +24,7 @@ namespace Novadaq.UI
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
             var folderDialog = new FolderSelectDialog();
-            folderDialog.InitialDirectory = Environment.CurrentDirectory;
+            folderDialog.InitialDirectory = _fileWatcher?.InputFolder ?? Environment.CurrentDirectory;
 
             // Show open file dialog box
             var result = folderDialog.ShowDialog();
@@ -36,13 +36,15 @@ namespace Novadaq.UI
                 var folderName = folderDialog.FolderName;
                 lbFolder.Text = folderName;
 
-                //Dispose existing (if any) running task;
                 btnStart.Content = "Start";
                 _isFileWatcherRunning = false;
 
+                //Dispose all outstanding tasks (if any)
                 _fileWatcher?.Dispose();
                 _fileWatcher = new FileWatcher(folderName);
 
+
+                //Dispose all subscription if it exists.
                 _subscription?.Dispose();
                 _subscription = _fileWatcher.InputValue.ObserveOnDispatcher().Subscribe((msg) =>
                 {
