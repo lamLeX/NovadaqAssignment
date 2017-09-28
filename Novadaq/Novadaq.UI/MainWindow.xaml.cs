@@ -46,6 +46,7 @@ namespace Novadaq.UI
 
                 //Dispose all subscription if it exists.
                 _subscription?.Dispose();
+                //Register action happens when new message signaled.
                 _subscription = _fileWatcher.InputValue.ObserveOnDispatcher().Subscribe((msg) =>
                 {
                     _session?.Messages.Add(new Message()
