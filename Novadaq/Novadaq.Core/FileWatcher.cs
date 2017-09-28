@@ -103,6 +103,12 @@ namespace Novadaq.Core
             }
         }
 
+        /// <summary>
+        /// This is trigger the Fibonacci calculating and out put to file independently.
+        /// </summary>
+        /// <param name="ct">The token used to cancel the task.</param>
+        /// <param name="inputValue">The input value for finding Fibonacci number.</param>
+        /// <returns></returns>
         private async Task ProceedToOutput(CancellationToken ct, int inputValue)
         {
             if (inputValue < 1)
