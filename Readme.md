@@ -8,12 +8,12 @@ It will be restored automatically by Nuget Package Manager if the project is bui
     Inded, the ammount of time it takes to calculate Fibonacci(50) is 8 minutes as in this picture
     
         ![Benchmark picture](Timing.PNG "Benchmark picture")
-    * `FileWatcher`: The file watcher represent a session with a given observed folder.
-    Whenever a new folder is given a new instance of FileWatcher should be created.
+    * `FileWatcher`: The file watcher represents a session with a given observed folder.
+    Whenever a new folder is given, a new instance of FileWatcher should be created.
     This file watcher uses [Task Parallel Libary (TPL)](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl)
     to schedule tasks that will be excuted by the default task scheduler (ThreadPool).
     The task will be interupted using CancellationTokenSource which is explained in [Cancellation in Managed Threads](https://docs.microsoft.com/en-us/dotnet/standard/threading/cancellation-in-managed-threads).
-    When the user asks to observe the folder, a new task will be spawn and run in the while loop to look for a file named `input` in the given folder.
+    When the user asks to observe the folder, a new task will be spawn and run in the `while` loop to look for a file named `input` in the given folder.
     If the user decides to terminate the task, the cancellation token will be propagated correctly to cancel all outstanding tasks.
     By using TPL, the input observation runs on a seperate thread and don't block the main thread at all. 
     Even when the Fibonacci is calculated, the current task will spawn the new task, schedule a callback by using `await` keyword and return the current thread to threadpool.
