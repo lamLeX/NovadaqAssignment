@@ -31,7 +31,7 @@ namespace Novadaq.Core.Test
 
         [Theory]
         [MemberData(nameof(GetFibonacciSequence))]
-        public void PhoneValidatorTest(long n, long expectedValue)
+        public void GetFibonacciAtAPositionTest(long n, long expectedValue)
         {
             //Assign
             var input = n;
