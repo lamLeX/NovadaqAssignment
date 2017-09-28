@@ -17,7 +17,7 @@ It will be restored automatically by Nuget Package Manager if the project is bui
     If the user decides to terminate the task, the cancellation token will be propagated correctly to cancel all outstanding tasks.
     By using TPL, the input observation runs on a seperate thread and don't block the main thread at all. 
     Even when the Fibonacci is calculated, the current task will spawn the new task, schedule a callback by using `await` keyword and return the current thread to threadpool.
-    The whole behavior could be observe using breakpoint at a certain stages; when a break point is hit, use `Parallel Stacks` and `Tasks` windows under `Debug/Windows` menu.
+    The whole behavior could be observed using breakpoint at certain stages; when a breakpoint is hit, use `Parallel Stacks` and `Tasks` windows under `Debug/Windows` menu.
         
         ![Parallel Stacks](ParallelStacks.PNG "Parallel Stacks")
 
