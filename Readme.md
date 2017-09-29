@@ -1,4 +1,8 @@
 ## Project structure
+The logic for Fibonacci and file IO is separated into a shared library targeting NetStandard 2.0 to maximize the potability. 
+By doing this the Novadaq.Core could be reused by any other platform such as Xamarin, ASP.NET. 
+However, to be able to use it portably on other platform, the FileIO need to be abstracted. This feature is out of scope for this assignment.
+
 * **Novadaq.Core** : Shared code library targeting NetStandard 2.0
   * This project depends on [System.Reative](https://www.nuget.org/packages/System.Reactive/). 
 It will be restored automatically by Nuget Package Manager if the project is built by Visual Studio
